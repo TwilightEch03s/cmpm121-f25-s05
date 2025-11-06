@@ -1,40 +1,39 @@
-# Section 5 – Refactoring Code Smells in Practice
+# Code Smell Analysis
 
-This activity is designed to help you practice identifying code smells and applying refactoring patterns to a real codebase in CMPM 121, Game Development Patterns.
+## Duplicated Code
 
-## Assignment Instructions
+In each event listener the same lines are repeated:
 
-For this assignment, your task is to **analyze and improve the code in `src/main.ts`**:
+ctr.innerHTML = '${c}';
+document.title = "Clicked " + c;
+document.body.style.backgroundColor = c % 2 ? "pink" : "lightblue";
 
-1. **Identify code smells**: Review the code and look for patterns that may cause maintenance issues, reduce readability, or introduce potential bugs.
-2. **Refactor**: Apply **refactoring patterns** as described in Fowler’s _Refactoring_ book to improve the code.
-3. **Document your work**: Once you have completed your refactoring:
-   - Rewrite this README.md
-   - List the **code smells** you identified
-   - Describe the **refactoring patterns** you applied and how they improved the code
+Made a seperate function that updates the UI and added in ana
 
-## Getting Started
+## Long Method
 
-With Codespaces (or another environment supporting devcontainers):
+The function setup() contains too much ifnormation where you create the UI and implementation of the logic all in the same function. I split the functions into specific tasks like creating UI and updating UI.
 
-1. Run `deno task dev` to start the development server
+## Comments
 
-Without Codespaces (local VS Code):
+Code contains too many comments that describe what each line does rather than explaining why it's done.
 
-1. Install the [Deno](https://docs.deno.com/runtime/getting_started/installation/) runtime.
-2. Install the Deno VS Code extension (must be done only after installing Deno runtime).
-3. Run `./setup-hooks.sh` to enable pre-commit quality checks
-4. Run `deno task dev` to start the development server
+// Get the increment button element from the document
+const bI = document.getElementById(a);
+// Get the decrement button element from the document
+const bD = document.getElementById("dec");
+// Get the reset button element from the document
+const bR = document.getElementById("reset");
+// Get the counter span element from the document
+const ctr = document.getElementById(b);
 
-The setup script configures Git hooks to automatically run formatting, linting, and type checking before commits.
+We only need one comment for this, having too many comments can making the code fell overwhelming to read.
 
-## Deployment
+## Unclear variable name
 
-This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+let c = 0
+const a = "increment", b = "counter", h = "CMPM 121 Project";
 
-### Setup GitHub Pages Deployment
+What is this code? I didn't know what it was until I read the comments.
 
-1. Go to your repository's Settings → Pages
-2. Under "Source", select "GitHub Actions"
-3. The workflow will automatically deploy on pushes to the `main` branch
-4. Your site will be published at `https://<your-github-username>.github.io/<repository-name>/`
+I changed this to let counter = 0; and I added in a button id to each button so the program knows what button the id is assigned to.
